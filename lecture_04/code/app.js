@@ -58,9 +58,8 @@ const main = async () => {
   console.log(updatedSashasName);
   const removeSasha = await dogs.removeDog(updatedSashasName._id);
 
-  const db = await connection();
-  await db.serverConfig.close();
-
+  const db = await connection.connectToDb();
+  await connection.closeConnection();
   console.log('Done!');
 };
 

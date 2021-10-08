@@ -1,5 +1,6 @@
 const mongoCollections = require('./mongoCollections');
 const dogs = mongoCollections.dogs;
+//const { ObjectId } = require('mongodb');
 
 module.exports = {
   // This is a fun new syntax that was brought forth in ES6, where we can define
@@ -29,6 +30,8 @@ module.exports = {
       throw 'You must provide an array of breeds';
 
     if (breeds.length === 0) throw 'You must provide at least one breed.';
+
+    if (typeof name != 'string') throw 'Name must be a string';
     const dogCollection = await dogs();
 
     let newDog = {

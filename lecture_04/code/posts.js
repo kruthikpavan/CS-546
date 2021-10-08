@@ -8,7 +8,7 @@ let exportedMethods = {
 
     const postCollection = await posts();
     const post = await postCollection.findOne({ _id: id });
-    if (post === null) throw 'No post with that id';
+    if (!post) throw 'No post with that id';
 
     return post;
   },
@@ -23,6 +23,8 @@ let exportedMethods = {
     if (!title) throw 'You must provide a title';
     if (!body) throw 'You must provide a body';
     if (!posterId) throw 'You must specify a poster';
+    if (typeof title !== 'string') throw 'Title must be a string';
+    if (typeof body !== 'string') throw 'Body must be a string ';
 
     const postCollection = await posts();
     const dogThatPosted = await dogs.getDogById(posterId);
@@ -44,6 +46,7 @@ let exportedMethods = {
     return newPost;
   },
   async removePost(id) {
+    if (!id) throw 'You must supply an ID';
     const postCollection = await posts();
     const deletionInfo = await postCollection.deleteOne({ _id: id });
 
@@ -57,6 +60,8 @@ let exportedMethods = {
     if (!title) throw 'You must provide a title';
     if (!body) throw 'You must provide a body';
     if (!posterId) throw 'You must specify a poster';
+    if (typeof title !== 'string') throw 'Title must be a string';
+    if (typeof body !== 'string') throw 'Body must be a string ';
 
     const postCollection = await posts();
     const dogThatPosted = await dogs.getDogById(posterId);
