@@ -7,6 +7,9 @@ let exportedMethods = {
   async getPostById(id) {
     if (!id) throw 'You must provide an id to search for';
     if (typeof id !== 'string') throw 'Id must be a string';
+    if (id.trim().length === 0)
+      throw 'id cannot be an empty string or just spaces';
+    id = id.trim();
     if (!ObjectId.isValid(id)) throw 'invalid object ID';
 
     const postCollection = await posts();
@@ -34,7 +37,7 @@ let exportedMethods = {
     if (typeof posterId !== 'string') throw 'posterId must be a string';
     if (posterId.trim().length === 0)
       throw 'PosterId cannot be an empty string or just spaces';
-    if (ObjectId.isValid(posterId)) throw 'posterId is not a valid Object ID';
+    if (!ObjectId.isValid(posterId)) throw 'posterId is not a valid Object ID';
     title = title.trim();
     body = body.trim();
     posterId = posterId.trim();
@@ -62,6 +65,9 @@ let exportedMethods = {
   async removePost(id) {
     if (!id) throw 'You must provide an id to search for';
     if (typeof id !== 'string') throw 'Id must be a string';
+    if (id.trim().length === 0)
+      throw 'id cannot be an empty string or just spaces';
+    id = id.trim();
     if (!ObjectId.isValid(id)) throw 'invalid object ID';
 
     const postCollection = await posts();
@@ -75,6 +81,9 @@ let exportedMethods = {
   async updatePost(id, title, body, posterId) {
     if (!id) throw 'You must provide an id to search for';
     if (typeof id !== 'string') throw 'Id must be a string';
+    if (id.trim().length === 0)
+      throw 'id cannot be an empty string or just spaces';
+    id = id.trim();
     if (!ObjectId.isValid(id)) throw 'invalid object ID';
     if (!title) throw 'You must provide a title';
     if (typeof title !== 'string') throw 'Title must be a string';
@@ -88,7 +97,7 @@ let exportedMethods = {
     if (typeof posterId !== 'string') throw 'posterId must be a string';
     if (posterId.trim().length === 0)
       throw 'PosterId cannot be an empty string or just spaces';
-    if (ObjectId.isValid(posterId)) throw 'posterId is not a valid Object ID';
+    if (!ObjectId.isValid(posterId)) throw 'posterId is not a valid Object ID';
     title = title.trim();
     body = body.trim();
     posterId = posterId.trim();

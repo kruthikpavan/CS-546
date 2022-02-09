@@ -10,6 +10,7 @@ module.exports = {
     if (typeof id !== 'string') throw 'Id must be a string';
     if (id.trim().length === 0)
       throw 'Id cannot be an empty string or just spaces';
+    id = id.trim();
     if (!ObjectId.isValid(id)) throw 'invalid object ID';
     const dogCollection = await dogs();
     const doggo = await dogCollection.findOne({ _id: ObjectId(id) });
@@ -63,6 +64,9 @@ module.exports = {
   async removeDog(id) {
     if (!id) throw 'You must provide an id to search for';
     if (typeof id !== 'string') throw 'Id must be a string';
+    if (id.trim().length === 0)
+      throw 'id cannot be an empty string or just spaces';
+    id = id.trim();
     if (!ObjectId.isValid(id)) throw 'invalid object ID';
 
     const dogCollection = await dogs();
@@ -79,6 +83,7 @@ module.exports = {
     if (typeof id !== 'string') throw 'Id must be a string';
     if (id.trim().length === 0)
       throw 'Id cannot be an empty string or just spaces';
+    id = id.trim();
     if (!ObjectId.isValid(id)) throw 'invalid object ID';
     if (!name) throw 'You must provide a name for your dog';
     if (typeof name !== 'string') throw 'Name must be a string';
