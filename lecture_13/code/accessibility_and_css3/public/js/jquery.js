@@ -9749,18 +9749,18 @@
   // getComputedStyle returns percent when specified for top/left/bottom/right;
   // rather than make the css module depend on the offset module, just check for it here
   jQuery.each(['top', 'left'], function (i, prop) {
-    jQuery.cssHooks[prop] = addGetHookIf(support.pixelPosition, function (
-      elem,
-      computed
-    ) {
-      if (computed) {
-        computed = curCSS(elem, prop);
-        // If curCSS returns percentage, fallback to offset
-        return rnumnonpx.test(computed)
-          ? jQuery(elem).position()[prop] + 'px'
-          : computed;
+    jQuery.cssHooks[prop] = addGetHookIf(
+      support.pixelPosition,
+      function (elem, computed) {
+        if (computed) {
+          computed = curCSS(elem, prop);
+          // If curCSS returns percentage, fallback to offset
+          return rnumnonpx.test(computed)
+            ? jQuery(elem).position()[prop] + 'px'
+            : computed;
+        }
       }
-    });
+    );
   });
 
   // Create innerHeight, innerWidth, height, width, outerHeight and outerWidth methods

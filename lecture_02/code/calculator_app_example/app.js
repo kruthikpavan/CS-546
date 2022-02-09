@@ -48,64 +48,64 @@ function getInfo() {
   //
   // Get two properties from the user: username and email
   //
-  prompt.get([operation, num1Prompt, num2Prompt, quitPrompt], function (
-    err,
-    result
-  ) {
-    if (result) {
-      const quit = result.quit;
+  prompt.get(
+    [operation, num1Prompt, num2Prompt, quitPrompt],
+    function (err, result) {
+      if (result) {
+        const quit = result.quit;
 
-      const num1 = result.num1;
+        const num1 = result.num1;
 
-      if (isNaN(num1)) {
-        console.log('First number is not a number');
+        if (isNaN(num1)) {
+          console.log('First number is not a number');
+          if (!quit) {
+            getInfo();
+          }
+          return;
+        }
+
+        const num2 = result.num2;
+        if (isNaN(num2)) {
+          console.log('Second number is not a number');
+          if (!quit) {
+            getInfo();
+          }
+          return;
+        }
+
+        const operation = stringToOperation(result.operation);
+
+        let operationFunction = undefined;
+
+        switch (operation) {
+          case 'multiply':
+            operationFunction = calculator.multiplyTwoNumbers;
+            break;
+          case 'subtract':
+            operationFunction = calculator.subtractTwoNumbers;
+            break;
+          case 'divide':
+            operationFunction = calculator.divideTwoNumbers;
+            break;
+          case 'add':
+            operationFunction = calculator.addTwoNumbers;
+            break;
+        }
+
+        const numericalResult = operationFunction(num1, num2);
+
+        console.log(
+          `when you ${operation} ${num1} with ${num2} you get ${numericalResult}`
+        );
+
         if (!quit) {
           getInfo();
         }
-        return;
+      } else if (err) {
+        console.error(err);
       }
-
-      const num2 = result.num2;
-      if (isNaN(num2)) {
-        console.log('Second number is not a number');
-        if (!quit) {
-          getInfo();
-        }
-        return;
-      }
-
-      const operation = stringToOperation(result.operation);
-
-      let operationFunction = undefined;
-
-      switch (operation) {
-        case 'multiply':
-          operationFunction = calculator.multiplyTwoNumbers;
-          break;
-        case 'subtract':
-          operationFunction = calculator.subtractTwoNumbers;
-          break;
-        case 'divide':
-          operationFunction = calculator.divideTwoNumbers;
-          break;
-        case 'add':
-          operationFunction = calculator.addTwoNumbers;
-          break;
-      }
-
-      const numericalResult = operationFunction(num1, num2);
-
-      console.log(
-        `when you ${operation} ${num1} with ${num2} you get ${numericalResult}`
-      );
-
-      if (!quit) {
-        getInfo();
-      }
-    } else if (err) {
-      console.error(err);
     }
-  });
+  );
 }
 
 getInfo();
