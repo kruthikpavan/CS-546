@@ -1,87 +1,100 @@
 const mongoCollections = require('./mongoCollections');
 const dogs = mongoCollections.dogs;
-//const { ObjectId } = require('mongodb');
+const { ObjectId } = require('mongodb');
 
 module.exports = {
-  // This is a fun new syntax that was brought forth in ES6, where we can define
-  // methods on an object with this shorthand!
-  async getDogById(id) {
-    if (!id) throw 'You must provide an id to search for';
+	// This is a fun new syntax that was brought forth in ES6, where we can define
+	// methods on an object with this shorthand!
+	async getDogById(id) {
+		if (!id) throw 'You must provide an id to search for';
+		if (typeof id !== 'string') throw 'Id must be a string';
+		if (!ObjectId.isValid(id)) throw 'invalid object ID';
+		const dogCollection = await dogs();
+		const doggo = await dogCollection.findOne({ _id: ObjectId(id) });
+		if (doggo === null) throw 'No dog with that id';
 
-    const dogCollection = await dogs();
-    const doggo = await dogCollection.findOne({ _id: id });
-    if (doggo === null) throw 'No dog with that id';
+		return doggo;
+	},
 
-    return doggo;
-  },
+	async getAllDogs() {
+		const dogCollection = await dogs();
 
-  async getAllDogs() {
-    const dogCollection = await dogs();
+		const dogList = await dogCollection.find({}).toArray();
 
-    const dogList = await dogCollection.find({}).toArray();
+		return dogList;
+	},
 
-    return dogList;
-  },
+	async addDog(name, breeds) {
+		let breedInvalidFlag = false;
+		if (!name) throw 'You must provide a name for your dog';
+		if (typeof name !== 'string') throw 'Name must be a string';
+		if (name.trim().length === 0) throw 'Name cannot be an empty string or string with just spaces';
+		if (!breeds || !Array.isArray(breeds)) throw 'You must provide an array of breeds';
+		for (i in breeds) {
+			if (typeof breeds[i] !== 'string') {
+				breedInvalidFlag = true;
+				break;
+			}
+		}
+		if (breedInvalidFlag) throw 'One or more breeds is not a string';
+		name = name.trim();
+		const dogCollection = await dogs();
 
-  async addDog(name, breeds) {
-    if (!name) throw 'You must provide a name for your dog';
+		let newDog = {
+			name: name,
+			breeds: breeds
+		};
 
-    if (!breeds || !Array.isArray(breeds))
-      throw 'You must provide an array of breeds';
+		const insertInfo = await dogCollection.insertOne(newDog);
+		if (!insertInfo.acknowledged || !insertInfo.insertedId) throw 'Could not add dog';
 
-    if (breeds.length === 0) throw 'You must provide at least one breed.';
+		const newId = insertInfo.insertedId.toString();
 
-    if (typeof name != 'string') throw 'Name must be a string';
-    const dogCollection = await dogs();
+		const dog = await this.getDogById(newId);
+		return dog;
+	},
+	async removeDog(id) {
+		if (!id) throw 'You must provide an id to search for';
+		if (typeof id !== 'string') throw 'Id must be a string';
+		if (!ObjectId.isValid(id)) throw 'invalid object ID';
 
-    let newDog = {
-      name: name,
-      breeds: breeds
-    };
+		const dogCollection = await dogs();
+		const deletionInfo = await dogCollection.deleteOne({ _id: ObjectId(id) });
 
-    const insertInfo = await dogCollection.insertOne(newDog);
-    if (insertInfo.insertedCount === 0) throw 'Could not add dog';
+		if (deletionInfo.deletedCount === 0) {
+			throw `Could not delete dog with id of ${id}`;
+		}
+		return { deleted: true };
+	},
+	async updateDog(id, name, breeds) {
+		let breedInvalidFlag = false;
+		if (!id) throw 'You must provide an id to search for';
+		if (typeof id !== 'string') throw 'Id must be a string';
+		if (!ObjectId.isValid(id)) throw 'invalid object ID';
+		if (!name) throw 'You must provide a name for your dog';
+		if (typeof name !== 'string') throw 'Name must be a string';
+		if (name.trim().length === 0) throw 'Name cannot be an empty string or string with just spaces';
+		if (!breeds || !Array.isArray(breeds)) throw 'You must provide an array of breeds';
+		for (i in breeds) {
+			if (typeof breeds[i] !== 'string') {
+				breedInvalidFlag = true;
+				break;
+			}
+		}
+		if (breedInvalidFlag) throw 'One or more breeds is not a string';
+		name = name.trim();
 
-    const newId = insertInfo.insertedId;
+		const dogCollection = await dogs();
+		const updatedDog = {
+			name: name,
+			breeds: breeds
+		};
 
-    const dog = await this.getDogById(newId);
-    return dog;
-  },
-  async removeDog(id) {
-    if (!id) throw 'You must provide an id to search for';
+		const updatedInfo = await dogCollection.updateOne({ _id: ObjectId(id) }, { $set: updatedDog });
+		if (updatedInfo.modifiedCount === 0) {
+			throw 'could not update dog successfully';
+		}
 
-    const dogCollection = await dogs();
-    const deletionInfo = await dogCollection.deleteOne({ _id: id });
-
-    if (deletionInfo.deletedCount === 0) {
-      throw `Could not delete dog with id of ${id}`;
-    }
-    return { deleted: true };
-  },
-  async updateDog(id, name, breeds) {
-    if (!id) throw 'You must provide an id to search for';
-
-    if (!name) throw 'You must provide a name for your dog';
-
-    if (!breeds || !Array.isArray(breeds))
-      throw 'You must provide an array of breeds';
-
-    if (breeds.length === 0) throw 'You must provide at least one breed.';
-
-    const dogCollection = await dogs();
-    const updatedDog = {
-      name: name,
-      breeds: breeds
-    };
-
-    const updatedInfo = await dogCollection.updateOne(
-      { _id: id },
-      { $set: updatedDog }
-    );
-    if (updatedInfo.modifiedCount === 0) {
-      throw 'could not update dog successfully';
-    }
-
-    return await this.getDogById(id);
-  }
+		return await this.getDogById(id);
+	}
 };
