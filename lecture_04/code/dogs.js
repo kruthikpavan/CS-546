@@ -18,9 +18,8 @@ module.exports = {
 
   async getAllDogs() {
     const dogCollection = await dogs();
-
     const dogList = await dogCollection.find({}).toArray();
-
+    if (!dogList) throw 'Could not get all dogs';
     return dogList;
   },
 

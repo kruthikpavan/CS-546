@@ -34,6 +34,17 @@ const main = async () => {
     console.log(e);
   }
 
+  console.log('Lets now get all dogs from the DB');
+
+  try {
+    const dogList = await dogs.getAllDogs();
+    console.log(dogList);
+  } catch (e) {
+    console.log(e);
+  }
+
+  console.log('Now lets add some posts!');
+
   try {
     maxPost = await posts.addPost(
       'The Case of the Stolen Bone',
@@ -64,6 +75,15 @@ const main = async () => {
     console.log(e);
   }
 
+  console.log('Now lets get all posts!');
+
+  try {
+    const postList = await posts.getAllPosts();
+    console.log(postList);
+  } catch (e) {
+    console.log(e);
+  }
+
   console.log("Let's change the title of Sasha's post...");
 
   try {
@@ -78,6 +98,8 @@ const main = async () => {
   } catch (e) {
     console.log(e);
   }
+
+  console.log("Now let's remove Max's Post");
 
   try {
     let deleted = await posts.removePost(maxPost._id.toString());

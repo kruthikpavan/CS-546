@@ -17,9 +17,8 @@ let exportedMethods = {
   },
   async getAllPosts() {
     const postCollection = await posts();
-
     const postList = await postCollection.find({}).toArray();
-
+    if (!postList) throw 'Could not get all posts';
     return postList;
   },
   async addPost(title, body, posterId) {
