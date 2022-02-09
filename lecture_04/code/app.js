@@ -3,12 +3,15 @@ const posts = require('./posts');
 const connection = require('./mongoConnection');
 
 const main = async () => {
+  //defining these here so I can use them later in the function
   let sasha = undefined;
   let max = undefined;
   let porkChop = undefined;
   let maxPost = undefined;
   let porkChopPost = undefined;
   let sashaPost = undefined;
+
+  console.log("Let's add some dogs!");
 
   try {
     sasha = await dogs.addDog('Sasha', ['Cheagle', 'Chihuaha', 'Beagle']);
@@ -131,11 +134,157 @@ const main = async () => {
     console.log(e);
   }
 
+  console.log("Now let's test some dog cases that fail");
+
+  //dog method fails
+  try {
+    const fail = await dogs.addDog('   ', ['Husky']);
+  } catch (e) {
+    console.log(e);
+  }
+
+  try {
+    const fail = await dogs.addDog('BowWow', ['', 'husky']);
+  } catch (e) {
+    console.log(e);
+  }
+
+  try {
+    const fail = await dogs.addDog('Lucy', [123]);
+  } catch (e) {
+    console.log(e);
+  }
+
+  try {
+    const fail = await dogs.addDog(123, ['Husky']);
+  } catch (e) {
+    console.log(e);
+  }
+
+  try {
+    const fail = await dogs.addDog();
+  } catch (e) {
+    console.log(e);
+  }
+
+  try {
+    const fail1 = await dogs.addDog('George');
+  } catch (e) {
+    console.log(e);
+  }
+
+  try {
+    const fail1 = await dogs.addDog('BooBoo', []);
+  } catch (e) {
+    console.log(e);
+  }
+
+  try {
+    const fail1 = await dogs.updateDog(123, '', []);
+  } catch (e) {
+    console.log(e);
+  }
+
+  try {
+    const fail1 = await dogs.removeDog(123);
+  } catch (e) {
+    console.log(e);
+  }
+
+  try {
+    const fail1 = await dogs.removeDog('123');
+  } catch (e) {
+    console.log(e);
+  }
+  try {
+    const fail1 = await dogs.removeDog();
+  } catch (e) {
+    console.log(e);
+  }
+
+  try {
+    const fail1 = await dogs.getDogById(123);
+  } catch (e) {
+    console.log(e);
+  }
+
+  try {
+    const fail1 = await dogs.getDogById('123');
+  } catch (e) {
+    console.log(e);
+  }
+
+  try {
+    const fail1 = await dogs.getDogById();
+  } catch (e) {
+    console.log(e);
+  }
+
+  //posts cases that fail
+
+  try {
+    const fail1 = await posts.addPost(123, 'Test body', 123);
+  } catch (e) {
+    console.log(e);
+  }
+
+  try {
+    const fail1 = await posts.addPost(
+      'The time my band opened for Stone Sour',
+      "It was back in 2007 at the Chance theatre in Poughkeepsie NY.  I hung out mostly with Stone Sour's drummer Roy...... Corey Taylor also offered me a sip of his drink which was straight Southern Comfort.. Of course I took it even though I hated Southern Comfort.  When Corey offers you a drink, you take it!......",
+      123
+    );
+  } catch (e) {
+    console.log(e);
+  }
+
+  try {
+    const fail1 = await posts.addPost('It was a clear black night', 789, 123);
+  } catch (e) {
+    console.log(e);
+  }
+
+  try {
+    const fail1 = await posts.addPost();
+  } catch (e) {
+    console.log(e);
+  }
+
+  try {
+    const fail1 = await posts.addPost(
+      'It was a clear black night',
+      'a clear white moon',
+      123
+    );
+  } catch (e) {
+    console.log(e);
+  }
+
+  try {
+    const fail1 = await posts.addPost(
+      '    ',
+      'this will fail because of first input',
+      123
+    );
+  } catch (e) {
+    console.log(e);
+  }
+
+  try {
+    const fail1 = await posts.addPost('Testing', 'this case will fail', '123');
+  } catch (e) {
+    console.log(e);
+  }
+
+  try {
+    const fail1 = await posts.addPost('Testing', 'this case will fail');
+  } catch (e) {
+    console.log(e);
+  }
+
   const db = await connection.connectToDb();
   await connection.closeConnection();
   console.log('Done!');
 };
 
-main().catch((error) => {
-  console.log(error);
-});
+main();

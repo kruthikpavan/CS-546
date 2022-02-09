@@ -23,11 +23,21 @@ let exportedMethods = {
   },
   async addPost(title, body, posterId) {
     if (!title) throw 'You must provide a title';
-    if (!body) throw 'You must provide a body';
-    if (!posterId) throw 'You must specify a poster';
     if (typeof title !== 'string') throw 'Title must be a string';
+    if (title.trim().length === 0)
+      throw 'Title cannot be an empty string or just spaces';
+    if (!body) throw 'You must provide a body';
     if (typeof body !== 'string') throw 'Body must be a string ';
+    if (body.trim().length === 0)
+      throw 'Body cannot be an empty string or just spaces';
+    if (!posterId) throw 'You must specify a poster';
     if (typeof posterId !== 'string') throw 'posterId must be a string';
+    if (posterId.trim().length === 0)
+      throw 'PosterId cannot be an empty string or just spaces';
+    if (ObjectId.isValid(posterId)) throw 'posterId is not a valid Object ID';
+    title = title.trim();
+    body = body.trim();
+    posterId = posterId.trim();
 
     const postCollection = await posts();
     const dogThatPosted = await dogs.getDogById(posterId);
@@ -67,11 +77,21 @@ let exportedMethods = {
     if (typeof id !== 'string') throw 'Id must be a string';
     if (!ObjectId.isValid(id)) throw 'invalid object ID';
     if (!title) throw 'You must provide a title';
-    if (!body) throw 'You must provide a body';
-    if (!posterId) throw 'You must specify a poster';
     if (typeof title !== 'string') throw 'Title must be a string';
+    if (title.trim().length === 0)
+      throw 'Title cannot be an empty string or just spaces';
+    if (!body) throw 'You must provide a body';
     if (typeof body !== 'string') throw 'Body must be a string ';
+    if (body.trim().length === 0)
+      throw 'Body cannot be an empty string or just spaces';
+    if (!posterId) throw 'You must specify a poster';
     if (typeof posterId !== 'string') throw 'posterId must be a string';
+    if (posterId.trim().length === 0)
+      throw 'PosterId cannot be an empty string or just spaces';
+    if (ObjectId.isValid(posterId)) throw 'posterId is not a valid Object ID';
+    title = title.trim();
+    body = body.trim();
+    posterId = posterId.trim();
 
     const postCollection = await posts();
     const dogThatPosted = await dogs.getDogById(posterId);

@@ -8,6 +8,8 @@ module.exports = {
   async getDogById(id) {
     if (!id) throw 'You must provide an id to search for';
     if (typeof id !== 'string') throw 'Id must be a string';
+    if (id.trim().length === 0)
+      throw 'Id cannot be an empty string or just spaces';
     if (!ObjectId.isValid(id)) throw 'invalid object ID';
     const dogCollection = await dogs();
     const doggo = await dogCollection.findOne({ _id: ObjectId(id) });
@@ -31,6 +33,7 @@ module.exports = {
       throw 'Name cannot be an empty string or string with just spaces';
     if (!breeds || !Array.isArray(breeds))
       throw 'You must provide an array of breeds';
+    if (breeds.length === 0) throw 'You must supply at least one breed';
     for (i in breeds) {
       if (typeof breeds[i] !== 'string' || breeds[i].trim().length === 0) {
         breedInvalidFlag = true;
@@ -74,6 +77,8 @@ module.exports = {
     let breedInvalidFlag = false;
     if (!id) throw 'You must provide an id to search for';
     if (typeof id !== 'string') throw 'Id must be a string';
+    if (id.trim().length === 0)
+      throw 'Id cannot be an empty string or just spaces';
     if (!ObjectId.isValid(id)) throw 'invalid object ID';
     if (!name) throw 'You must provide a name for your dog';
     if (typeof name !== 'string') throw 'Name must be a string';
@@ -81,6 +86,7 @@ module.exports = {
       throw 'Name cannot be an empty string or string with just spaces';
     if (!breeds || !Array.isArray(breeds))
       throw 'You must provide an array of breeds';
+    if (breeds.length === 0) throw 'You must supply at least one breed';
     for (i in breeds) {
       if (typeof breeds[i] !== 'string' || breeds[i].trim().length === 0) {
         breedInvalidFlag = true;
