@@ -54,6 +54,7 @@ const main = async () => {
       "It was 2015 when it happened. Someone stole the bone, and hid it in a hole outside. It's a good thing that I hide all my bones in holes outside, or I would have never found. I then realized that, all along, it was me who hid the bone.",
       max._id.toString()
     );
+    console.log(maxPost);
   } catch (e) {
     console.log(e);
   }
@@ -64,6 +65,7 @@ const main = async () => {
       "They call me Pork Chop. I don't like Pork! I only eat Turkey! I DON'T KNOW WHO I AM!",
       porkChop._id.toString()
     );
+    console.log(porkChopPost);
   } catch (e) {
     console.log(e);
   }
@@ -74,6 +76,7 @@ const main = async () => {
       "It was 2014 when I was born, and it was 2014 when I received my first taste of Bleu d'Auvergne. I dined upon the delicacy at the home of my grand-papa, known as The Cheese Man for the great varieties of cheese he kept in his abode. I still do not know if the Bleu d'Auvergne was what ignited my love of cheese, or if it was the strange diet of my papa whom kept away from the starches and sugars and replaced them with cheeses and legumes. But truly, I will never forget the strange world of the first taste of Bleu d'Auvergne, to this day the greatest cheese I have ever tasted. It paired very nicely with the cheeseburger I stole from my papa's four year old cousin. No one believed him. It was the perfect crime.",
       sasha._id.toString()
     );
+    console.log(sashaPost);
   } catch (e) {
     console.log(e);
   }
