@@ -33,12 +33,14 @@ module.exports = {
     if (!breeds || !Array.isArray(breeds))
       throw 'You must provide an array of breeds';
     for (i in breeds) {
-      if (typeof breeds[i] !== 'string') {
+      if (typeof breeds[i] !== 'string' || breeds[i].trim().length === 0) {
         breedInvalidFlag = true;
         break;
       }
+      breeds[i] = breeds[i].trim();
     }
-    if (breedInvalidFlag) throw 'One or more breeds is not a string';
+    if (breedInvalidFlag)
+      throw 'One or more breeds is not a string or is an empty string';
     name = name.trim();
     const dogCollection = await dogs();
 
@@ -81,12 +83,14 @@ module.exports = {
     if (!breeds || !Array.isArray(breeds))
       throw 'You must provide an array of breeds';
     for (i in breeds) {
-      if (typeof breeds[i] !== 'string') {
+      if (typeof breeds[i] !== 'string' || breeds[i].trim().length === 0) {
         breedInvalidFlag = true;
         break;
       }
+      breeds[i] = breeds[i].trim();
     }
-    if (breedInvalidFlag) throw 'One or more breeds is not a string';
+    if (breedInvalidFlag)
+      throw 'One or more breeds is not a string or is an empty string';
     name = name.trim();
 
     const dogCollection = await dogs();
