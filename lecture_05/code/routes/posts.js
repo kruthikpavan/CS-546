@@ -2,11 +2,12 @@ const express = require('express');
 const router = express.Router();
 const data = require('../data');
 const postData = data.posts;
-
+const validation = require('../data/validation');
 router
   .route('/:id')
   .get(async (req, res) => {
     try {
+      req.params.id = validation.checkId(req.params.id);
       const post = await postData.getPostById(req.params.id);
       res.json(post);
     } catch (e) {

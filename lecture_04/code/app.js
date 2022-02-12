@@ -3,6 +3,8 @@ const posts = require('./posts');
 const connection = require('./mongoConnection');
 
 const main = async () => {
+  const db = await connection.connectToDb();
+  await db.dropDatabase();
   //defining these here so I can use them later in the function
   let sasha = undefined;
   let max = undefined;
@@ -285,7 +287,6 @@ const main = async () => {
     console.log(e);
   }
 
-  const db = await connection.connectToDb();
   await connection.closeConnection();
   console.log('Done!');
 };

@@ -36,3 +36,4 @@ node_modules
 .DS_Store
 
 Scratch
+lecture_05/code/package-lock.json
