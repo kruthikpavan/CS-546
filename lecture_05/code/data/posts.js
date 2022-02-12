@@ -1,7 +1,8 @@
 const mongoCollections = require('../config/mongoCollections');
 const posts = mongoCollections.posts;
 const users = require('./users');
-const uuid = require('uuid');
+const { ObjectId } = require('mongodb');
+const validation = require('./validation');
 
 let exportedMethods = {
   async getAllPosts() {
@@ -9,13 +10,18 @@ let exportedMethods = {
     return await postCollection.find({}).toArray();
   },
   async getPostById(id) {
+    id = validation.checkId(id);
     const postCollection = await posts();
-    const post = await postCollection.findOne({ _id: id });
+    const post = await postCollection.findOne({ _id: ObjectId(id) });
 
-    if (!post) throw 'Post not found';
+    if (!post) throw 'Error: Post not found';
     return post;
   },
   async addPost(title, body, posterId) {
+    title = validation.checkString(title, 'title');
+    body = validation.checkString(body, 'body');
+    posterId = validation.checkId(posterId);
+
     const postCollection = await posts();
     const userThatPosted = await users.getUserById(posterId);
 
@@ -25,23 +31,27 @@ let exportedMethods = {
       poster: {
         id: posterId,
         name: `${userThatPosted.firstName} ${userThatPosted.lastName}`
-      },
-      _id: uuid.v4()
+      }
     };
 
     const newInsertInformation = await postCollection.insertOne(newPost);
-    if (newInsertInformation.insertedCount === 0) throw 'Insert failed!';
+    if (!newInsertInformation.insertedId) throw 'Error: Insert failed!';
 
-    return this.getPostById(newInsertInformation.insertedId);
+    return this.getPostById(newInsertInformation.insertedId.toString());
   },
   async removePost(id) {
+    id = validation.checkId(id);
     const postCollection = await posts();
-    const deletionInfo = await postCollection.deleteOne({ _id: id });
+    const deletionInfo = await postCollection.deleteOne({ _id: ObjectId(id) });
     if (deletionInfo.deletedCount === 0)
-      throw `Could not delete post with id of ${id}`;
+      throw `Error: Could not delete post with id of ${id}`;
     return true;
   },
   async updatePost(id, title, body, posterId) {
+    id = validation.checkId(id);
+    title = validation.checkString(title, 'title');
+    body = validation.checkString(body, 'body');
+    posterId = validation.checkId(posterId);
     const postCollection = await posts();
     const userThatPosted = await users.getUserById(posterId);
 
@@ -54,11 +64,11 @@ let exportedMethods = {
       }
     };
     const updateInfo = await postCollection.updateOne(
-      { _id: id },
+      { _id: ObjectId(id) },
       { $set: updatedPost }
     );
     if (!updateInfo.matchedCount && !updateInfo.modifiedCount)
-      throw 'Update failed';
+      throw 'Error: Update failed';
     return this.getPostById(id);
   }
 };
