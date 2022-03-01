@@ -4,11 +4,11 @@ const users = data.users;
 const posts = data.posts;
 
 async function main() {
-  const db = await dbConnection();
+  const db = await dbConnection.dbConnection();
   await db.dropDatabase();
 
   const patrick = await users.addUser('Patrick', 'Hill');
-  const id = patrick._id;
+  const id = patrick._id.toString();
   await posts.addPost('Hello, class!', 'Today we are creating a blog!', [], id);
   await posts.addPost(
     'Using the seed',
@@ -26,7 +26,7 @@ async function main() {
 
   console.log('Done seeding database');
 
-  await db.serverConfig.close();
+  await dbConnection.closeConnection();
 }
 
 main();

@@ -1,7 +1,8 @@
 const mongoCollections = require('../config/mongoCollections');
 const posts = mongoCollections.posts;
 const users = require('./users');
-const uuid = require('uuid/v4');
+const { ObjectId } = require('mongodb');
+const validation = require('../validation');
 
 const exportedMethods = {
   async getAllPosts() {
@@ -9,24 +10,26 @@ const exportedMethods = {
     return await postCollection.find({}).toArray();
   },
   async getPostsByTag(tag) {
-    if (!tag) throw 'No tag provided';
-
+    tag = validation.checkString(tag, 'Tag');
     const postCollection = await posts();
     return await postCollection.find({ tags: tag }).toArray();
   },
   async getPostById(id) {
+    id = validation.checkId(id, 'ID');
     const postCollection = await posts();
-    const post = await postCollection.findOne({ _id: id });
+    const post = await postCollection.findOne({ _id: ObjectId(id) });
 
     if (!post) throw 'Post not found';
     return post;
   },
   async addPost(title, body, tags, posterId) {
-    if (typeof title !== 'string') throw 'No title provided';
-    if (typeof body !== 'string') throw 'I aint got nobody!';
-
+    title = validation.checkString(title, 'Title');
+    body = validation.checkString(body, 'Body');
+    posterId = validation.checkId(posterId, 'Poster ID');
     if (!Array.isArray(tags)) {
       tags = [];
+    } else {
+      tags = validation.checkStringArray(tags, 'Tags');
     }
 
     const postCollection = await posts();
@@ -37,34 +40,29 @@ const exportedMethods = {
       title: title,
       body: body,
       poster: {
-        id: posterId,
+        id: ObjectId(posterId),
         name: `${userThatPosted.firstName} ${userThatPosted.lastName}`
       },
-      tags: tags,
-      _id: uuid()
+      tags: tags
     };
-
     const newInsertInformation = await postCollection.insertOne(newPost);
     const newId = newInsertInformation.insertedId;
-
-    await users.addPostToUser(posterId, newId, title);
-
-    return await this.getPostById(newId);
+    return await this.getPostById(newId.toString());
   },
   async removePost(id) {
+    id = validation.checkId(id, 'ID');
     const postCollection = await posts();
-    let post = null;
+
     try {
-      post = await this.getPostById(id);
+      const post = await this.getPostById(id);
     } catch (e) {
       console.log(e);
       return;
     }
-    const deletionInfo = await postCollection.removeOne({ _id: id });
+    const deletionInfo = await postCollection.deleteOne({ _id: ObjectId(id) });
     if (deletionInfo.deletedCount === 0) {
       throw `Could not delete post with id of ${id}`;
     }
-    await users.removePostFromUser(post.poster.id, id);
     return true;
   },
   async updatePost(id, updatedPost) {
@@ -73,22 +71,33 @@ const exportedMethods = {
     const updatedPostData = {};
 
     if (updatedPost.tags) {
-      updatedPostData.tags = updatedPost.tags;
+      updatedPostData.tags = validation.checkStringArray(
+        updatedPost.tags,
+        'Tags'
+      );
     }
 
     if (updatedPost.title) {
-      updatedPostData.title = updatedPost.title;
+      updatedPostData.title = validation.checkString(
+        updatedPost.title,
+        'Title'
+      );
     }
 
     if (updatedPost.body) {
-      updatedPostData.body = updatedPost.body;
+      updatedPostData.body = validation.checkString(updatedPost.body, 'Body');
     }
 
-    await postCollection.updateOne({ _id: id }, { $set: updatedPostData });
+    await postCollection.updateOne(
+      { _id: ObjectId(id) },
+      { $set: updatedPostData }
+    );
 
     return await this.getPostById(id);
   },
   async renameTag(oldTag, newTag) {
+    oldTag = validation.checkString(oldTag, 'Old Tag');
+    newTag = validation.checkString(newTag, 'New Tag');
     if (oldTag === newTag) throw 'tags are the same';
     let findDocuments = {
       tags: oldTag

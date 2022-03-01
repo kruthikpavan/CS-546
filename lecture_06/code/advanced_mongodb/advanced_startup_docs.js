@@ -148,7 +148,7 @@ async function runSetup() {
   );
 
   const flatliners2017 = makeDoc('Flatliners', 5.2, 2017, 'Niels Arden Oplev');
-  flatliners.cast.push(
+  flatliners2017.cast.push(
     'Ellen Page',
     'Diego Luna',
     'Nina Dobrev',

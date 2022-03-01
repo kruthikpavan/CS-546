@@ -221,18 +221,6 @@ module.exports = {
       .toArray();
   },
 
-  // this is a VERY slow operation;
-  // it has to traverse the whole collection
-  searchByJavaScriptQuery: async (keyword) => {
-    if (!keyword) throw 'You must provide a keyword';
-    const movieCollection = await movies();
-    return await movieCollection
-      .find({
-        $where: "this.title.toLowerCase().indexOf('" + keyword + "') >= 0"
-      })
-      .toArray();
-  },
-
   // =================
   // Advanced Updating
   // =================
@@ -245,7 +233,7 @@ module.exports = {
     return await movieCollection
       .updateOne({ _id: id }, { $set: { title: newTitle } })
       .then(async function () {
-        return await module.exports.getMovie(id);
+        return await this.getMovie(id);
       });
   },
 

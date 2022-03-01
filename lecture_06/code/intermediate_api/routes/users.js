@@ -2,8 +2,15 @@ const express = require('express');
 const router = express.Router();
 const data = require('../data');
 const userData = data.users;
+const validation = require('../validation');
 
 router.get('/:id', async (req, res) => {
+  try {
+    req.params.id = validation.checkId(req.params.id, 'ID URL Param');
+  } catch (e) {
+    res.status(400).json({ error: e });
+    return;
+  }
   try {
     let user = await userData.getUserById(req.params.id);
     res.json(user);
@@ -24,19 +31,14 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
   let userInfo = req.body;
 
-  if (!userInfo) {
-    res.status(400).json({ error: 'You must provide data to create a user' });
-    return;
-  }
-
-  if (!userInfo.firstName) {
-    res.status(400).json({ error: 'You must provide a first name' });
-    return;
-  }
-
-  if (!userInfo.lastName) {
-    res.status(400).json({ error: 'You must provide a last name' });
-    return;
+  try {
+    userInfo.firstName = validation.checkString(
+      userInfo.firstName,
+      'First Name'
+    );
+    userInfo.lastName = validation.checkString(userInfo.lastName, 'Last Name');
+  } catch (e) {
+    res.status(400).json({ error: e });
   }
 
   try {
@@ -52,20 +54,15 @@ router.post('/', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
   let userInfo = req.body;
-
-  if (!userInfo) {
-    res.status(400).json({ error: 'You must provide data to update a user' });
-    return;
-  }
-
-  if (!userInfo.firstName) {
-    res.status(400).json({ error: 'You must provide a first name' });
-    return;
-  }
-
-  if (!userInfo.lastName) {
-    res.status(400).json({ error: 'You must provide a last name' });
-    return;
+  try {
+    req.params.id = validation.checkId(req.params.id);
+    userInfo.firstName = validation.checkString(
+      userInfo.firstName,
+      'First Name'
+    );
+    userInfo.lastName = validation.checkString(userInfo.lastName, 'Last Name');
+  } catch (e) {
+    return res.status(400).json({ error: e });
   }
 
   try {
@@ -78,12 +75,16 @@ router.put('/:id', async (req, res) => {
     const updatedUser = await userData.updateUser(req.params.id, userInfo);
     res.json(updatedUser);
   } catch (e) {
-    res.sendStatus(500);
+    res.status(500).send('Internal Server Error');
   }
 });
 
 router.delete('/:id', async (req, res) => {
-  if (!req.params.id) throw 'You must specify an ID to delete';
+  try {
+    req.params.id = validation.checkId(req.params.id);
+  } catch (e) {
+    return res.status(400).json({ error: e });
+  }
   try {
     await userData.getUserById(req.params.id);
   } catch (e) {
@@ -93,9 +94,10 @@ router.delete('/:id', async (req, res) => {
 
   try {
     await userData.removeUser(req.params.id);
-    res.sendStatus(200);
+    res.status(200).json({ deleted: true });
+    return;
   } catch (e) {
-    res.sendStatus(500);
+    res.status(500);
   }
 });
 

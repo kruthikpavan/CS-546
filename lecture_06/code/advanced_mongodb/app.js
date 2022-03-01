@@ -6,74 +6,68 @@ async function main() {
   const startUp = await startUpDocs.runSetup();
 
   //Now we can experiment calling the advanced query functions.
-  const findChrisNolan = await advMongo.findByDirector('Christopher Nolan');
-  console.log(findChrisNolan);
+  // const findChrisNolan = await advMongo.findByDirector('Christopher Nolan');
+  // console.log(findChrisNolan);
 
-  const before2015 = await advMongo.findMoviesReleasedOnOrBefore(2015);
-  console.log(before2015);
+  // const before2015 = await advMongo.findMoviesReleasedOnOrBefore(2015);
+  // console.log(before2015);
 
-  const rating = await advMongo.findByRatings([3.2, 5]);
-  console.log(rating);
+  // const rating = await advMongo.findByRatings([ 3.2, 5 ]);
+  // console.log(rating);
 
-  const ratingtwo = await advMongo.findByRatingsNot([3.2, 5]);
-  console.log(ratingtwo);
+  // const ratingtwo = await advMongo.findByRatingsNot([ 3.2, 5 ]);
+  // console.log(ratingtwo);
 
-  const after2015 = await advMongo.findMoviesReleasedAfter(2015);
-  console.log(after2015);
+  // const after2015 = await advMongo.findMoviesReleasedAfter(2015);
+  // console.log(after2015);
 
-  const directorAndYear = await advMongo.findMoviesWithDirectorAndYear(
-    'Christopher Nolan',
-    2015
-  );
-  console.log(directorAndYear);
+  // const directorAndYear = await advMongo.findMoviesWithDirectorAndYear('Christopher Nolan', 2015);
+  // console.log(directorAndYear);
 
-  const directorOrYear = await advMongo.findMoviesWithDirectorOrYear(
-    'Christopher Nolan',
-    2015
-  );
-  console.log(directorOrYear);
+  // const directorOrYear = await advMongo.findMoviesWithDirectorOrYear('Christopher Nolan', 2015);
+  // console.log(directorOrYear);
 
-  const selectFields = await advMongo.getAllMoviesTitleDirectorCastOnly();
-  console.log(selectFields);
+  // const sortByTitleYearDec = await advMongo.getAllMoviesSortedByTitleAscYearDec();
+  // console.log(sortByTitleYearDec);
 
-  const excludeFields = await advMongo.getAllMoviesExcludeReviewsInfoCast();
-  console.log(excludeFields);
+  // const selectFields = await advMongo.getAllMoviesTitleDirectorCastOnly();
+  // console.log(selectFields);
 
-  const sortByTitleAsc = await advMongo.getAllMoviesSortedByTitleAsc();
-  console.log(sortByTitleAsc);
+  // const excludeFields = await advMongo.getAllMoviesExcludeReviewsInfoCast();
+  // console.log(excludeFields);
 
-  const sortByTitleDec = await advMongo.getAllMoviesSortedByTitleDec();
-  console.log(sortByTitleDec);
+  // const sortByTitleAsc = await advMongo.getAllMoviesSortedByTitleAsc();
+  // console.log(sortByTitleAsc);
 
-  const sortByYearAsc = await advMongo.getAllMoviesSortedByYearAsc();
-  console.log(sortByYearAsc);
+  // const sortByTitleDec = await advMongo.getAllMoviesSortedByTitleDec();
+  // console.log(sortByTitleDec);
 
-  const sortByYearDec = await advMongo.getAllMoviesSortedByYearDec();
-  console.log(sortByYearDec);
+  // const sortByYearAsc = await advMongo.getAllMoviesSortedByYearAsc();
+  // console.log(sortByYearAsc);
 
-  const sortByTitleYearDec = await advMongo.getAllMoviesSortedByTitleAscYearDec();
-  console.log(sortByTitleYearDec);
+  // const sortByYearDec = await advMongo.getAllMoviesSortedByYearDec();
+  // console.log(sortByYearDec);
 
-  const skipFirstTwo = await advMongo.getAllMoviesSkipFirstTwo();
-  console.log(skipFirstTwo);
+  // const skipFirstTwo = await advMongo.getAllMoviesSkipFirstTwo();
+  // console.log(skipFirstTwo);
 
-  const limitFirstTwo = await advMongo.getAllMoviesLimitOfTwo();
-  console.log(limitFirstTwo);
+  // const limitFirstTwo = await advMongo.getAllMoviesLimitOfTwo();
+  // console.log(limitFirstTwo);
 
-  const skipAndLimit = await advMongo.getAllMoviesSkipFirstLimitThree();
-  console.log(skipAndLimit);
+  // const skipAndLimit = await advMongo.getAllMoviesSkipFirstLimitThree();
+  // console.log(skipAndLimit);
 
-  const updateTitle = await advMongo.updateTitle(1, 'inception');
-  console.log(updateTitle);
+  // const updateTitle = await advMongo.updateTitle(1, 'inception');
+  // console.log(updateTitle);
 
-  const updateDirector = await advMongo.updateDirector(1, 'Patrick Hill');
-  console.log(updateDirector);
+  // const updateDirector = await advMongo.updateDirector(1, 'Patrick Hill');
+  // console.log(updateDirector);
 
-  const incYear = await advMongo.bumpReleaseYearUp(1);
-  console.log(incYear);
+  // const incYear = await advMongo.bumpReleaseYearUp(1);
+  // console.log(incYear);
 
-  const findLeo = await advMongo.findByCast('Leonardo DiCaprio');
-  console.log(findLeo);
+  // const findLeo = await advMongo.findByCast('Leonardo DiCaprio');
+  // console.log(findLeo);
 
   const findPhil = await advMongo.findByReviewerName('Phil');
   console.log(findPhil);
