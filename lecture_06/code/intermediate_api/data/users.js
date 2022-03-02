@@ -1,7 +1,7 @@
 const mongoCollections = require('../config/mongoCollections');
 const users = mongoCollections.users;
 const posts = mongoCollections.posts;
-const { ObjectId } = require('mongodb');
+const {ObjectId} = require('mongodb');
 const validation = require('../validation');
 
 let exportedMethods = {
@@ -16,7 +16,7 @@ let exportedMethods = {
   async getUserById(id) {
     id = validation.checkId(id, 'ID');
     const userCollection = await users();
-    const user = await userCollection.findOne({ _id: ObjectId(id) });
+    const user = await userCollection.findOne({_id: ObjectId(id)});
     if (!user) throw 'User not found';
     return user;
   },
@@ -37,7 +37,7 @@ let exportedMethods = {
   async removeUser(id) {
     id = validation.checkId(id, 'id');
     const userCollection = await users();
-    const deletionInfo = await userCollection.deleteOne({ _id: ObjectId(id) });
+    const deletionInfo = await userCollection.deleteOne({_id: ObjectId(id)});
     if (deletionInfo.deletedCount === 0) {
       throw `Could not delete user with id of ${id}`;
     }
@@ -61,8 +61,8 @@ let exportedMethods = {
 
     const userCollection = await users();
     const updateInfo = await userCollection.updateOne(
-      { _id: ObjectId(id) },
-      { $set: userUpdateInfo }
+      {_id: ObjectId(id)},
+      {$set: userUpdateInfo}
     );
     if (!updateInfo.matchedCount && !updateInfo.modifiedCount)
       throw 'Update failed';
@@ -70,7 +70,7 @@ let exportedMethods = {
 		all posts that the user posted */
     const postCollection = await posts();
     await postCollection.updateMany(
-      { 'poster.id': ObjectId(id) },
+      {'poster.id': ObjectId(id)},
       {
         $set: {
           'poster.name': `${updatedUser.firstName} ${updatedUser.lastName}`

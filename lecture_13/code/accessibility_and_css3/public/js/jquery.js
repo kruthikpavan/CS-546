@@ -1645,10 +1645,10 @@
         find: {},
 
         relative: {
-          '>': { dir: 'parentNode', first: true },
-          ' ': { dir: 'parentNode' },
-          '+': { dir: 'previousSibling', first: true },
-          '~': { dir: 'previousSibling' }
+          '>': {dir: 'parentNode', first: true},
+          ' ': {dir: 'parentNode'},
+          '+': {dir: 'previousSibling', first: true},
+          '~': {dir: 'previousSibling'}
         },
 
         preFilter: {
@@ -2194,7 +2194,7 @@
       }) {
         Expr.pseudos[i] = createInputPseudo(i);
       }
-      for (i in { submit: true, reset: true }) {
+      for (i in {submit: true, reset: true}) {
         Expr.pseudos[i] = createButtonPseudo(i);
       }
 
@@ -2551,7 +2551,7 @@
                     // If the preceding token was a descendant combinator, insert an implicit any-element `*`
                     tokens
                       .slice(0, i - 1)
-                      .concat({ value: tokens[i - 2].type === ' ' ? '*' : '' })
+                      .concat({value: tokens[i - 2].type === ' ' ? '*' : ''})
                   ).replace(rtrim, '$1'),
                 matcher,
                 i < j && matcherFromTokens(tokens.slice(i, j)),
@@ -3859,7 +3859,7 @@
 
         // Secure it in a non-enumerable, non-writable property
         try {
-          descriptor[this.expando] = { value: unlock };
+          descriptor[this.expando] = {value: unlock};
           Object.defineProperties(owner, descriptor);
 
           // Support: Android<4
@@ -4844,7 +4844,7 @@
               }
             }
             if (matches.length) {
-              handlerQueue.push({ elem: cur, handlers: matches });
+              handlerQueue.push({elem: cur, handlers: matches});
             }
           }
         }
@@ -5157,7 +5157,7 @@
   // Support: Firefox, Chrome, Safari
   // Create "bubbling" focus and blur events
   if (!support.focusinBubbles) {
-    jQuery.each({ focus: 'focusin', blur: 'focusout' }, function (orig, fix) {
+    jQuery.each({focus: 'focusin', blur: 'focusout'}, function (orig, fix) {
       // Attach a single capturing handler on the document while someone wants focusin/focusout
       var handler = function (event) {
         jQuery.event.simulate(fix, event.target, jQuery.event.fix(event), true);
@@ -6173,7 +6173,7 @@
     rdisplayswap = /^(none|table(?!-c[ea]).+)/,
     rnumsplit = new RegExp('^(' + pnum + ')(.*)$', 'i'),
     rrelNum = new RegExp('^([+-])=(' + pnum + ')', 'i'),
-    cssShow = { position: 'absolute', visibility: 'hidden', display: 'block' },
+    cssShow = {position: 'absolute', visibility: 'hidden', display: 'block'},
     cssNormalTransform = {
       letterSpacing: '0',
       fontWeight: '400'
@@ -6558,7 +6558,7 @@
     support.reliableMarginRight,
     function (elem, computed) {
       if (computed) {
-        return jQuery.swap(elem, { display: 'inline-block' }, curCSS, [
+        return jQuery.swap(elem, {display: 'inline-block'}, curCSS, [
           elem,
           'marginRight'
         ]);
@@ -6840,7 +6840,7 @@
   function genFx(type, includeWidth) {
     var which,
       i = 0,
-      attrs = { height: type };
+      attrs = {height: type};
 
     // If we include width, step value is 1 to do all cssExpand values,
     // otherwise step value is 2 to skip over Left and Right
@@ -7092,7 +7092,7 @@
       animation = deferred.promise({
         elem: elem,
         props: jQuery.extend({}, properties),
-        opts: jQuery.extend(true, { specialEasing: {} }, options),
+        opts: jQuery.extend(true, {specialEasing: {}}, options),
         originalProperties: properties,
         originalOptions: options,
         startTime: fxNow || createFxNow(),
@@ -7249,7 +7249,7 @@
 
           // Animate to the value specified
           .end()
-          .animate({ opacity: to }, speed, easing, callback)
+          .animate({opacity: to}, speed, easing, callback)
       );
     },
     animate: function (prop, speed, easing, callback) {
@@ -7381,9 +7381,9 @@
       slideDown: genFx('show'),
       slideUp: genFx('hide'),
       slideToggle: genFx('toggle'),
-      fadeIn: { opacity: 'show' },
-      fadeOut: { opacity: 'hide' },
-      fadeToggle: { opacity: 'toggle' }
+      fadeIn: {opacity: 'show'},
+      fadeOut: {opacity: 'hide'},
+      fadeToggle: {opacity: 'toggle'}
     },
     function (name, props) {
       jQuery.fn[name] = function (speed, easing, callback) {
@@ -8405,7 +8405,7 @@
       }
     }
 
-    return { state: 'success', data: response };
+    return {state: 'success', data: response};
   }
 
   jQuery.extend({
@@ -8746,7 +8746,7 @@
       strAbort = 'abort';
 
       // Install callbacks on deferreds
-      for (i in { success: 1, error: 1, complete: 1 }) {
+      for (i in {success: 1, error: 1, complete: 1}) {
         jqXHR[i](s[i]);
       }
 
@@ -9124,9 +9124,9 @@
             ? null
             : jQuery.isArray(val)
             ? jQuery.map(val, function (val) {
-                return { name: elem.name, value: val.replace(rCRLF, '\r\n') };
+                return {name: elem.name, value: val.replace(rCRLF, '\r\n')};
               })
-            : { name: elem.name, value: val.replace(rCRLF, '\r\n') };
+            : {name: elem.name, value: val.replace(rCRLF, '\r\n')};
         })
         .get();
     }
@@ -9623,7 +9623,7 @@
       var docElem,
         win,
         elem = this[0],
-        box = { top: 0, left: 0 },
+        box = {top: 0, left: 0},
         doc = elem && elem.ownerDocument;
 
       if (!doc) {
@@ -9657,7 +9657,7 @@
       var offsetParent,
         offset,
         elem = this[0],
-        parentOffset = { top: 0, left: 0 };
+        parentOffset = {top: 0, left: 0};
 
       // Fixed elements are offset from window (parentOffset = {top:0, left: 0}, because it is its only offset parent
       if (jQuery.css(elem, 'position') === 'fixed') {
@@ -9710,7 +9710,7 @@
 
   // Create scrollLeft and scrollTop methods
   jQuery.each(
-    { scrollLeft: 'pageXOffset', scrollTop: 'pageYOffset' },
+    {scrollLeft: 'pageXOffset', scrollTop: 'pageYOffset'},
     function (method, prop) {
       var top = 'pageYOffset' === prop;
 
@@ -9764,9 +9764,9 @@
   });
 
   // Create innerHeight, innerWidth, height, width, outerHeight and outerWidth methods
-  jQuery.each({ Height: 'height', Width: 'width' }, function (name, type) {
+  jQuery.each({Height: 'height', Width: 'width'}, function (name, type) {
     jQuery.each(
-      { padding: 'inner' + name, content: type, '': 'outer' + name },
+      {padding: 'inner' + name, content: type, '': 'outer' + name},
       function (defaultExtra, funcName) {
         // Margin is only for outerHeight, outerWidth
         jQuery.fn[funcName] = function (margin, value) {

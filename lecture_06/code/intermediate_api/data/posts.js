@@ -1,7 +1,7 @@
 const mongoCollections = require('../config/mongoCollections');
 const posts = mongoCollections.posts;
 const users = require('./users');
-const { ObjectId } = require('mongodb');
+const {ObjectId} = require('mongodb');
 const validation = require('../validation');
 
 const exportedMethods = {
@@ -12,12 +12,12 @@ const exportedMethods = {
   async getPostsByTag(tag) {
     tag = validation.checkString(tag, 'Tag');
     const postCollection = await posts();
-    return await postCollection.find({ tags: tag }).toArray();
+    return await postCollection.find({tags: tag}).toArray();
   },
   async getPostById(id) {
     id = validation.checkId(id, 'ID');
     const postCollection = await posts();
-    const post = await postCollection.findOne({ _id: ObjectId(id) });
+    const post = await postCollection.findOne({_id: ObjectId(id)});
 
     if (!post) throw 'Post not found';
     return post;
@@ -59,7 +59,7 @@ const exportedMethods = {
       console.log(e);
       return;
     }
-    const deletionInfo = await postCollection.deleteOne({ _id: ObjectId(id) });
+    const deletionInfo = await postCollection.deleteOne({_id: ObjectId(id)});
     if (deletionInfo.deletedCount === 0) {
       throw `Could not delete post with id of ${id}`;
     }
@@ -89,8 +89,8 @@ const exportedMethods = {
     }
 
     await postCollection.updateOne(
-      { _id: ObjectId(id) },
-      { $set: updatedPostData }
+      {_id: ObjectId(id)},
+      {$set: updatedPostData}
     );
 
     return await this.getPostById(id);
@@ -104,11 +104,11 @@ const exportedMethods = {
     };
 
     let firstUpdate = {
-      $addToSet: { tags: newTag }
+      $addToSet: {tags: newTag}
     };
 
     let secondUpdate = {
-      $pull: { tags: oldTag }
+      $pull: {tags: oldTag}
     };
 
     const postCollection = await posts();

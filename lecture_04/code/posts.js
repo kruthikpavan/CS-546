@@ -1,7 +1,7 @@
 const mongoCollections = require('./mongoCollections');
 const posts = mongoCollections.posts;
 const dogs = require('./dogs');
-const { ObjectId } = require('mongodb');
+const {ObjectId} = require('mongodb');
 
 let exportedMethods = {
   async getPostById(id) {
@@ -13,7 +13,7 @@ let exportedMethods = {
     if (!ObjectId.isValid(id)) throw 'invalid object ID';
 
     const postCollection = await posts();
-    const post = await postCollection.findOne({ _id: ObjectId(id) });
+    const post = await postCollection.findOne({_id: ObjectId(id)});
     if (!post) throw 'No post with that id';
 
     return post;
@@ -71,12 +71,12 @@ let exportedMethods = {
     if (!ObjectId.isValid(id)) throw 'invalid object ID';
 
     const postCollection = await posts();
-    const deletionInfo = await postCollection.deleteOne({ _id: ObjectId(id) });
+    const deletionInfo = await postCollection.deleteOne({_id: ObjectId(id)});
 
     if (deletionInfo.deletedCount === 0) {
       throw `Could not delete post with id of ${id}`;
     }
-    return { deleted: true };
+    return {deleted: true};
   },
   async updatePost(id, title, body, posterId) {
     if (!id) throw 'You must provide an id to search for';
@@ -115,7 +115,7 @@ let exportedMethods = {
     };
 
     const updatedInfo = await postCollection.replaceOne(
-      { _id: ObjectId(id) },
+      {_id: ObjectId(id)},
       updatedPost
     );
 

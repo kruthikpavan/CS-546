@@ -42,7 +42,7 @@
     // then, we check if they are numbers
     // we cannot check for things like dividing by 0 because we don't know which operation to do
 
-    return { firstNumber: firstNumber, secondNumber: secondNumber };
+    return {firstNumber: firstNumber, secondNumber: secondNumber};
   }
 
   addButton.click(function () {

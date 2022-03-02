@@ -12,11 +12,11 @@ const exportedMethods = {
     if (!tag) throw 'No tag provided';
 
     const postCollection = await posts();
-    return await postCollection.find({ tags: tag }).toArray();
+    return await postCollection.find({tags: tag}).toArray();
   },
   async getPostById(id) {
     const postCollection = await posts();
-    const post = await postCollection.findOne({ _id: id });
+    const post = await postCollection.findOne({_id: id});
 
     if (!post) throw 'Post not found';
     return post;
@@ -60,7 +60,7 @@ const exportedMethods = {
       console.log(e);
       return;
     }
-    const deletionInfo = await postCollection.removeOne({ _id: id });
+    const deletionInfo = await postCollection.removeOne({_id: id});
     if (deletionInfo.deletedCount === 0) {
       throw `Could not delete post with id of ${id}`;
     }
@@ -84,7 +84,7 @@ const exportedMethods = {
       updatedPostData.body = updatedPost.body;
     }
 
-    await postCollection.updateOne({ _id: id }, { $set: updatedPostData });
+    await postCollection.updateOne({_id: id}, {$set: updatedPostData});
 
     return await this.getPostById(id);
   },
@@ -95,11 +95,11 @@ const exportedMethods = {
     };
 
     let firstUpdate = {
-      $addToSet: { tags: newTag }
+      $addToSet: {tags: newTag}
     };
 
     let secondUpdate = {
-      $pull: { tags: oldTag }
+      $pull: {tags: oldTag}
     };
 
     const postCollection = await posts();

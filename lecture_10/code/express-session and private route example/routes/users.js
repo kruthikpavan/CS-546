@@ -3,11 +3,11 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 
 router.get('/', async (req, res) => {
-  res.json({ route: '/users', method: req.method });
+  res.json({route: '/users', method: req.method});
 });
 
 router.post('/', async (req, res) => {
-  res.json({ route: '/users', method: req.method });
+  res.json({route: '/users', method: req.method});
 });
 
 router.post('/login', async (req, res) => {
@@ -18,7 +18,7 @@ router.post('/login', async (req, res) => {
 	let match = bcrypt.compare(password, 'HASHED_PW_FROM DB');
 	if they match then set req.session.user and then redirect them to the login page
 	 I will just do that here */
-  req.session.user = { firstName: 'Patrick', lastName: 'Hill', userId: 123 };
+  req.session.user = {firstName: 'Patrick', lastName: 'Hill', userId: 123};
   res.redirect('/private');
 });
 

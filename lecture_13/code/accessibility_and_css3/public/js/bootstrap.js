@@ -48,7 +48,7 @@ if (typeof jQuery === 'undefined') {
 
     for (var name in transEndEventNames) {
       if (el.style[name] !== undefined) {
-        return { end: transEndEventNames[name] };
+        return {end: transEndEventNames[name]};
       }
     }
 
@@ -844,7 +844,7 @@ if (typeof jQuery === 'undefined') {
     $(toggle).each(function () {
       var $this = $(this);
       var $parent = getParent($this);
-      var relatedTarget = { relatedTarget: this };
+      var relatedTarget = {relatedTarget: this};
 
       if (!$parent.hasClass('open')) return;
 
@@ -889,7 +889,7 @@ if (typeof jQuery === 'undefined') {
           .on('click', clearMenus);
       }
 
-      var relatedTarget = { relatedTarget: this };
+      var relatedTarget = {relatedTarget: this};
       $parent.trigger((e = $.Event('show.bs.dropdown', relatedTarget)));
 
       if (e.isDefaultPrevented()) return;
@@ -1035,7 +1035,7 @@ if (typeof jQuery === 'undefined') {
 
   Modal.prototype.show = function (_relatedTarget) {
     var that = this;
-    var e = $.Event('show.bs.modal', { relatedTarget: _relatedTarget });
+    var e = $.Event('show.bs.modal', {relatedTarget: _relatedTarget});
 
     this.$element.trigger(e);
 
@@ -1081,7 +1081,7 @@ if (typeof jQuery === 'undefined') {
 
       that.enforceFocus();
 
-      var e = $.Event('shown.bs.modal', { relatedTarget: _relatedTarget });
+      var e = $.Event('shown.bs.modal', {relatedTarget: _relatedTarget});
 
       transition
         ? that.$dialog // wait for modal to slide in
@@ -1338,7 +1338,7 @@ if (typeof jQuery === 'undefined') {
       var option = $target.data('bs.modal')
         ? 'toggle'
         : $.extend(
-            { remote: !/#/.test(href) && href },
+            {remote: !/#/.test(href) && href},
             $target.data(),
             $this.data()
           );
@@ -1416,7 +1416,7 @@ if (typeof jQuery === 'undefined') {
           ? this.options.viewport.call(this, this.$element)
           : this.options.viewport.selector || this.options.viewport
       );
-    this.inState = { click: false, hover: false, focus: false };
+    this.inState = {click: false, hover: false, focus: false};
 
     if (
       this.$element[0] instanceof document.constructor &&
@@ -1595,7 +1595,7 @@ if (typeof jQuery === 'undefined') {
 
       $tip
         .detach()
-        .css({ top: 0, left: 0, display: 'block' })
+        .css({top: 0, left: 0, display: 'block'})
         .addClass(placement)
         .data('bs.' + this.type, this);
 
@@ -1786,14 +1786,14 @@ if (typeof jQuery === 'undefined') {
         height: elRect.bottom - elRect.top
       });
     }
-    var elOffset = isBody ? { top: 0, left: 0 } : $element.offset();
+    var elOffset = isBody ? {top: 0, left: 0} : $element.offset();
     var scroll = {
       scroll: isBody
         ? document.documentElement.scrollTop || document.body.scrollTop
         : $element.scrollTop()
     };
     var outerDims = isBody
-      ? { width: $(window).width(), height: $(window).height() }
+      ? {width: $(window).width(), height: $(window).height()}
       : null;
 
     return $.extend({}, elRect, scroll, outerDims, elOffset);
@@ -1832,7 +1832,7 @@ if (typeof jQuery === 'undefined') {
     actualWidth,
     actualHeight
   ) {
-    var delta = { top: 0, left: 0 };
+    var delta = {top: 0, left: 0};
     if (!this.$viewport) return delta;
 
     var viewportPadding =

@@ -171,4 +171,4 @@ async function runSetup() {
 }
 
 // By exporting a function, we can run
-exports = module.exports = { runSetup };
+exports = module.exports = {runSetup};

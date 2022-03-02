@@ -22,7 +22,7 @@ const handlebarsInstance = exphbs.create({
 
 app.use('/public', express.static(__dirname + '/public'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({extended: true}));
 
 app.engine('handlebars', handlebarsInstance.engine);
 app.set('view engine', 'handlebars');

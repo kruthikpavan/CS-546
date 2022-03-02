@@ -22,7 +22,7 @@ prompt
   })
   .then(function (fileName) {
     return fs.readFileAsync(fileName, 'utf-8').then(function (data) {
-      return { fileName: fileName, fileContent: data };
+      return {fileName: fileName, fileContent: data};
     });
   })
   .then(function (fileInfo) {

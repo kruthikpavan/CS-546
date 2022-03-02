@@ -26,7 +26,7 @@ console.log(myObj);
 
 console.log(myObj.myFn('Hey Patrick'));
 
-const myConstObj = { a: 1, b: 2, c: 3 };
+const myConstObj = {a: 1, b: 2, c: 3};
 console.log(myConstObj);
 myConstObj.c = 4;
 console.log(myConstObj);

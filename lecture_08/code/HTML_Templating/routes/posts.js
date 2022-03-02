@@ -6,26 +6,26 @@ const userData = data.users;
 
 router.get('/new', async (req, res) => {
   const users = await userData.getAllUsers();
-  res.render('posts/new', { users: users });
+  res.render('posts/new', {users: users});
 });
 
 router.get('/:id', async (req, res) => {
   try {
     const post = await postData.getPostById(req.params.id);
-    res.render('posts/single', { post: post });
+    res.render('posts/single', {post: post});
   } catch (e) {
-    res.status(500).json({ error: e });
+    res.status(500).json({error: e});
   }
 });
 
 router.get('/tag/:tag', async (req, res) => {
   const postList = await postData.getPostsByTag(req.params.tag);
-  res.render('posts/index', { posts: postList });
+  res.render('posts/index', {posts: postList});
 });
 
 router.get('/', async (req, res) => {
   const postList = await postData.getAllPosts();
-  res.render('posts/index', { posts: postList });
+  res.render('posts/index', {posts: postList});
 });
 
 router.post('/', async (req, res) => {
@@ -65,7 +65,7 @@ router.post('/', async (req, res) => {
 
     res.redirect(`/posts/${newPost._id}`);
   } catch (e) {
-    res.status(500).json({ error: e });
+    res.status(500).json({error: e});
   }
 });
 
@@ -74,14 +74,14 @@ router.put('/:id', async (req, res) => {
   try {
     await postData.getPostById(req.params.id);
   } catch (e) {
-    res.status(404).json({ error: 'Post not found' });
+    res.status(404).json({error: 'Post not found'});
     return;
   }
   try {
     const updatedPost = await postData.updatePost(req.params.id, updatedData);
     res.json(updatedPost);
   } catch (e) {
-    res.status(500).json({ error: e });
+    res.status(500).json({error: e});
   }
 });
 
@@ -89,7 +89,7 @@ router.delete('/:id', async (req, res) => {
   try {
     await postData.getPostById(req.params.id);
   } catch (e) {
-    res.status(404).json({ error: 'Post not found' });
+    res.status(404).json({error: 'Post not found'});
     return;
   }
 
@@ -97,7 +97,7 @@ router.delete('/:id', async (req, res) => {
     await postData.removePost(req.params.id);
     res.sendStatus(200);
   } catch (e) {
-    res.status(500).json({ error: e });
+    res.status(500).json({error: e});
   }
 });
 

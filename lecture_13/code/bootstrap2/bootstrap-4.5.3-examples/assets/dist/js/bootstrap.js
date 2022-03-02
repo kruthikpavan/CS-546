@@ -15,7 +15,7 @@
   'use strict';
 
   function _interopDefaultLegacy(e) {
-    return e && typeof e === 'object' && 'default' in e ? e : { default: e };
+    return e && typeof e === 'object' && 'default' in e ? e : {default: e};
   }
 
   var $__default = /*#__PURE__*/ _interopDefaultLegacy($);
@@ -5160,6 +5160,6 @@
   exports.Tooltip = Tooltip;
   exports.Util = Util;
 
-  Object.defineProperty(exports, '__esModule', { value: true });
+  Object.defineProperty(exports, '__esModule', {value: true});
 });
 //# sourceMappingURL=bootstrap.js.map

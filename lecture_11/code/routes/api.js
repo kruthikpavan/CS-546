@@ -7,12 +7,12 @@ router.post('/todo', function (request, response) {
   todoData.makeToDo(xss(request.body.name), xss(request.body.description));
 
   // response.json({ success: true, message: request.body.description });
-  response.json({ success: true, message: xss(request.body.description) });
+  response.json({success: true, message: xss(request.body.description)});
 });
 
 router.post('/todo/complete/:id', function (request, response) {
   const updatedData = todoData.finishToDo(parseInt(request.params.id));
-  response.render('partials/todo_item', { layout: null, ...updatedData });
+  response.render('partials/todo_item', {layout: null, ...updatedData});
 });
 
 router.post('/todo.html', function (request, response) {
@@ -21,7 +21,7 @@ router.post('/todo.html', function (request, response) {
     xss(request.body.description)
   );
 
-  response.render('partials/todo_item', { layout: null, ...newTodo });
+  response.render('partials/todo_item', {layout: null, ...newTodo});
 });
 
 module.exports = router;

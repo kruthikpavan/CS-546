@@ -15,7 +15,7 @@
   'use strict';
 
   function _interopDefaultLegacy(e) {
-    return e && typeof e === 'object' && 'default' in e ? e : { default: e };
+    return e && typeof e === 'object' && 'default' in e ? e : {default: e};
   }
 
   var $__default = /*#__PURE__*/ _interopDefaultLegacy($);
@@ -2466,7 +2466,7 @@
 
     // NOTE: 1 DOM access here
 
-    var boundaries = { top: 0, left: 0 };
+    var boundaries = {top: 0, left: 0};
     var offsetParent = fixedPosition
       ? getFixedPositionOffsetParent(popper)
       : findCommonOffsetParent(popper, getReferenceNode(reference));
@@ -2663,7 +2663,7 @@
    * @returns {String} flipped placement
    */
   function getOppositePlacement(placement) {
-    var hash = { left: 'right', right: 'left', bottom: 'top', top: 'bottom' };
+    var hash = {left: 'right', right: 'left', bottom: 'top', top: 'bottom'};
     return placement.replace(/left|right|bottom|top/g, function (matched) {
       return hash[matched];
     });
@@ -2941,7 +2941,7 @@
   function attachToScrollParents(scrollParent, event, callback, scrollParents) {
     var isBody = scrollParent.nodeName === 'BODY';
     var target = isBody ? scrollParent.ownerDocument.defaultView : scrollParent;
-    target.addEventListener(event, callback, { passive: true });
+    target.addEventListener(event, callback, {passive: true});
 
     if (!isBody) {
       attachToScrollParents(
@@ -8110,6 +8110,6 @@
   exports.Tooltip = Tooltip;
   exports.Util = Util;
 
-  Object.defineProperty(exports, '__esModule', { value: true });
+  Object.defineProperty(exports, '__esModule', {value: true});
 });
 //# sourceMappingURL=bootstrap.bundle.js.map

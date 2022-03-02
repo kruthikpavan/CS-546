@@ -71,7 +71,7 @@ app.use(async (req, res, next) => {
 // 6. One which will deny all users access to the /admin path.
 app.use('/admin', async (req, res, next) => {
   console.log("I'm in the admin middleware");
-  return res.status(403).json({ error: '403: Forbidden' });
+  return res.status(403).json({error: '403: Forbidden'});
   next();
 });
 
@@ -106,7 +106,7 @@ app.use(async (req, res, next) => {
 
     // invalidate, then clear so that lastAccessed no longer shows up on the
     // cookie object
-    res.cookie('lastAccessed', '', { expires: anHourAgo });
+    res.cookie('lastAccessed', '', {expires: anHourAgo});
     res.clearCookie('lastAccessed');
 
     next();
@@ -120,7 +120,7 @@ app.use(async (req, res, next) => {
   // Providing a third parameter is optional, but allows you to set options for the cookies.
   // see: http://expressjs.com/en/api.html#res.cookie
   // for details on what you can do!
-  res.cookie('lastAccessed', now.toString(), { expires: expiresAt });
+  res.cookie('lastAccessed', now.toString(), {expires: expiresAt});
   res.cookie('patrick', 'hill');
   next();
 });
