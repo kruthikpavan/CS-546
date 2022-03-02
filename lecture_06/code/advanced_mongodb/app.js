@@ -29,7 +29,8 @@ async function main() {
 
 	const sortByTitleYearDec = await advMongo.getAllMoviesSortedByTitleAscYearDec();
 	console.log(sortByTitleYearDec);
-
+	const sortByTitleYearAsc = await advMongo.getAllMoviesSortedByTitleAscYearAsc();
+	console.log(sortByTitleYearAsc);
 	const selectFields = await advMongo.getAllMoviesTitleDirectorCastOnly();
 	console.log(selectFields);
 
