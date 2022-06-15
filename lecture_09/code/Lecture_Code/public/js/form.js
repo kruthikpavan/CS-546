@@ -79,8 +79,9 @@
         const firstNumberValue = firstNumberElement.value;
         const secondNumberValue = secondNumberElement.value;
         const operationValue = operationElement.value;
-
+        console.log(typeof firstNumberValue);
         const parsedFirstNumberValue = parseInt(firstNumberValue);
+        console.log(typeof parsedFirstNumberValue);
         const parsedSecondNumberValue = parseInt(secondNumberValue);
         const operation = operationStringToFunction(operationValue);
 

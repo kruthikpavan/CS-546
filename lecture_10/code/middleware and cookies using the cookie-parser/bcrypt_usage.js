@@ -6,15 +6,15 @@ async function main() {
   const hash = await bcrypt.hash(plainTextPassword, saltRounds);
   console.log(hash);
 
-  let compareToMerlin = false;
+  let compareToSherlock = false;
 
   try {
-    compareToMerlin = await bcrypt.compare('elementarymydearwatson', hash);
+    compareToSherlock = await bcrypt.compare('elementarymydearwatson', hash);
   } catch (e) {
     //no op
   }
 
-  if (compareToMerlin) {
+  if (compareToSherlock) {
     console.log("The passwords match.. this shouldn't be");
   } else {
     console.log('The passwords do not match');

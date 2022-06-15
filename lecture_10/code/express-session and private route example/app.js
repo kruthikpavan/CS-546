@@ -9,7 +9,7 @@ app.use(
   session({
     name: 'AwesomeWebApp',
     secret: "This is a secret.. shhh don't tell anyone",
-    saveUninitialized: true,
+    saveUninitialized: false,
     resave: false,
     cookie: {maxAge: 60000}
   })
