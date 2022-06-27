@@ -15,7 +15,7 @@ async function runSetup() {
   const movieCollection = await db.collection('advancedMovies');
   let docId = 0;
 
-  const makeDoc = function (title, rating, released, director) {
+  const makeDoc = function(title, rating, released, director) {
     return {
       _id: ++docId,
       title: title,
@@ -29,7 +29,7 @@ async function runSetup() {
     };
   };
 
-  const addReview = function (movie, title, comment, reviewer, rating) {
+  const addReview = function(movie, title, comment, reviewer, rating) {
     const newReview = {
       _id: uuid.v4(),
       title: title,
@@ -46,7 +46,7 @@ async function runSetup() {
   const inception = makeDoc('Inception', 4.5, 2015, 'Christopher Nolan');
   inception.cast.push(
     'Leonardo DiCaprio',
-    'Ellen Page',
+    'Elliot Page',
     'Ken Watanabe',
     'Joseph Gordon-Levitt',
     'Marion Cotillard',
@@ -149,7 +149,7 @@ async function runSetup() {
 
   const flatliners2017 = makeDoc('Flatliners', 5.2, 2017, 'Niels Arden Oplev');
   flatliners2017.cast.push(
-    'Ellen Page',
+    'Elliot Page',
     'Diego Luna',
     'Nina Dobrev',
     'James Norton',
