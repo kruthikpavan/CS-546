@@ -16,7 +16,7 @@ const main = async () => {
   console.log("Let's add some dogs!");
 
   try {
-    sasha = await dogs.addDog('   ', ['Cheagle', 'Chihuaha', 'Beagle']);
+    sasha = await dogs.addDog('Sasha', ['Cheagle', 'Chihuaha', 'Beagle']);
     console.log('Sasha the dog has been added, now she will blog!');
     console.log(sasha);
   } catch (e) {
