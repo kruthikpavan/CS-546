@@ -1,9 +1,9 @@
-const connection = require('./mongoConnection');
+import {dbConnection} from './mongoConnection.js';
 
-const uuid = require('uuid');
+import {v4} from 'uuid';
 
 async function runSetup() {
-  const db = await connection();
+  const db = await dbConnection();
 
   try {
     // We can recover from this; if it can't drop the collection, it's because
@@ -15,7 +15,7 @@ async function runSetup() {
   const movieCollection = await db.collection('advancedMovies');
   let docId = 0;
 
-  const makeDoc = function(title, rating, released, director) {
+  const makeDoc = function (title, rating, released, director) {
     return {
       _id: ++docId,
       title: title,
@@ -24,18 +24,18 @@ async function runSetup() {
       cast: [],
       info: {
         release: released,
-        director: director
-      }
+        director: director,
+      },
     };
   };
 
-  const addReview = function(movie, title, comment, reviewer, rating) {
+  const addReview = function (movie, title, comment, reviewer, rating) {
     const newReview = {
-      _id: uuid.v4(),
+      _id: v4(),
       title: title,
       comment: comment,
       reviewer: reviewer,
-      rating: rating
+      rating: rating,
     };
 
     movie.reviews.push(newReview);
@@ -171,4 +171,4 @@ async function runSetup() {
 }
 
 // By exporting a function, we can run
-exports = module.exports = {runSetup};
+export {runSetup};

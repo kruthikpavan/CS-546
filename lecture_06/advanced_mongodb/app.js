@@ -1,9 +1,9 @@
-const advMongo = require('./advanced_mongo');
-const startUpDocs = require('./advanced_startup_docs');
+import advMongo from './advanced_mongo.js';
+import {runSetup} from './advanced_startup_docs.js';
 
 async function main() {
   //First lets run the start up to create the data in the DB Can be commented out after first run to perserve DB
-  const startUp = await startUpDocs.runSetup();
+  const startUp = await runSetup();
 
   //Now we can experiment calling the advanced query functions.
   const findChrisNolan = await advMongo.findByDirector('Christopher Nolan');
@@ -33,9 +33,11 @@ async function main() {
   );
   console.log(directorOrYear);
 
-  const sortByTitleYearDec = await advMongo.getAllMoviesSortedByTitleAscYearDec();
+  const sortByTitleYearDec =
+    await advMongo.getAllMoviesSortedByTitleAscYearDec();
   console.log(sortByTitleYearDec);
-  const sortByTitleYearAsc = await advMongo.getAllMoviesSortedByTitleAscYearAsc();
+  const sortByTitleYearAsc =
+    await advMongo.getAllMoviesSortedByTitleAscYearAsc();
   console.log(sortByTitleYearAsc);
   const selectFields = await advMongo.getAllMoviesTitleDirectorCastOnly();
   console.log(selectFields);
