@@ -57,7 +57,7 @@ function getInfo() {
         const num1 = result.num1;
 
         if (isNaN(num1)) {
-          console.log('First number is not a number');
+          console.log('First number is not a number!');
           if (!quit) {
             getInfo();
           }
